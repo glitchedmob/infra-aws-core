@@ -14,12 +14,10 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   validate:
     uses: glitchedmob/infra-gha/.github/workflows/tf-validate.yml@main
     with:
       working-directory: tf
-    secrets:
-      aws_role_arn: ${{ secrets.AWS_GHA_TERRAFORM_ROLE_ARN }}
+      init-backend: false
