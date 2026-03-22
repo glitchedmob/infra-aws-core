@@ -1,6 +1,7 @@
 .PHONY: help tf-init tf-plan tf-show tf-output tf-apply tf-validate tf-format tf-lint-fix
 
 TF_DIR := tf
+ENVRC := $(CURDIR)/.envrc
 SHELL := bash
 
 help:
@@ -15,22 +16,22 @@ help:
 	@echo "  Format fix:        make tf-lint-fix"
 
 tf-init:
-	@cd $(TF_DIR) && tofu init
+	@source "$(ENVRC)" && cd $(TF_DIR) && tofu init
 
 tf-plan:
-	@cd $(TF_DIR) && tofu plan
+	@source "$(ENVRC)" && cd $(TF_DIR) && tofu plan
 
 tf-show:
-	@cd $(TF_DIR) && tofu show $(ARGS)
+	@source "$(ENVRC)" && cd $(TF_DIR) && tofu show $(ARGS)
 
 tf-output:
-	@cd $(TF_DIR) && tofu output $(ARGS)
+	@source "$(ENVRC)" && cd $(TF_DIR) && tofu output $(ARGS)
 
 tf-apply:
-	@cd $(TF_DIR) && tofu apply
+	@source "$(ENVRC)" && cd $(TF_DIR) && tofu apply
 
 tf-validate:
-	@cd $(TF_DIR) && tofu validate
+	@source "$(ENVRC)" && cd $(TF_DIR) && tofu validate
 
 tf-format:
 	@cd $(TF_DIR) && tofu fmt -check -recursive
