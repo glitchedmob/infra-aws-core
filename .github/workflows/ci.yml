@@ -3,13 +3,13 @@ name: CI
 on:
   pull_request:
     paths:
-      - tf/**
+      - src/tf/**
       - .github/workflows/**
   push:
     branches:
       - main
     paths:
-      - tf/**
+      - src/tf/**
       - .github/workflows/**
 
 permissions:

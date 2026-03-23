@@ -1,6 +1,6 @@
 .PHONY: help tf-init tf-plan tf-show tf-output tf-apply tf-validate tf-format tf-lint-fix
 
-TF_DIR := tf
+TF_DIR := src/tf
 ENVRC := $(CURDIR)/.envrc
 SHELL := bash
 

@@ -15,7 +15,7 @@ Creates foundational AWS infrastructure required by all other infrastructure sta
 
 ### Prerequisites
 
-- [OpenTofu](https://opentofu.org/) >= 1.11 (version specified in `tf/.tofu-version`)
+- [OpenTofu](https://opentofu.org/) >= 1.11 (version specified in `src/tf/.tofu-version`)
 - AWS credentials configured locally (via AWS CLI, environment variables, or IAM role)
 
 ### Local Operations
