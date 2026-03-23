@@ -82,7 +82,10 @@ resource "aws_iam_role" "github_actions_terraform" {
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:glitchedmob/infra:*"
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:glitchedmob/infra:*",
+              "repo:glitchedmob/infra-public-edge:*",
+            ]
           }
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
