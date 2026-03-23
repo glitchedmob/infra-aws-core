@@ -2,9 +2,11 @@
 
 Terraform configuration for AWS bootstrap resources. This is a **local-only** stack - all applies must be run from a local workstation, not via CI/CD.
 
-## Purpose
+## Scope
 
-Creates foundational AWS infrastructure required by all other infrastructure stacks:
+- **OpenTofu (`src/tf/`)**: provisions foundational AWS backend resources used by other stacks.
+
+The stack includes:
 
 - **S3 Bucket** (`levizitting-infra-tf-state`) - Remote state storage with versioning and encryption
 - **DynamoDB Table** (`terraform-locks`) - State locking to prevent concurrent modifications
@@ -21,32 +23,24 @@ Creates foundational AWS infrastructure required by all other infrastructure sta
 ### Local Operations
 
 ```bash
-# See all available commands
 make help
-
-# Initialize (run once)
 make tf-init
-
-# Preview changes
 make tf-plan
-
-# Apply changes
+make tf-show ARGS=tfplan
+make tf-output
 make tf-apply
-
-# Validate syntax
 make tf-validate
-
-# Check formatting
 make tf-format
+make tf-lint-fix
 ```
 
-### CI Checks
+## CI Checks
 
 On pull requests, CI will automatically run:
 - `tofu validate` - Syntax validation
 - `tofu fmt -check` - Format checking
 
-No deployments occur via CI - this is strictly for validation.
+No deployments occur via CI; this is validation-only.
 
 ## Outputs
 
@@ -56,8 +50,8 @@ No deployments occur via CI - this is strictly for validation.
 | `backend_table_name` | DynamoDB table for state locking |
 | `github_actions_role_arn` | IAM role ARN for GitHub Actions (sensitive) |
 
-## Important Notes
+## Operational Notes
 
 - **Bootstrap Order**: This must be applied first before any other infrastructure stacks can use remote state
 - **Local-Only**: No automatic deployments via GitHub Actions
-- **State Storage**: This stack uses local state (not stored in S3) since it creates the S3 backend used by other stacks
+- **State Storage**: This stack uses the shared S3 backend with DynamoDB locking (`aws-global/terraform.tfstate`).
