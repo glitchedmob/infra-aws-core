@@ -84,6 +84,7 @@ resource "aws_iam_role" "github_actions_terraform" {
           StringLike = {
             "token.actions.githubusercontent.com:sub" = [
               "repo:glitchedmob/infra:*",
+              "repo:glitchedmob/infra-headscale:*",
               "repo:glitchedmob/infra-public-edge:*",
             ]
           }
