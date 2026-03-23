@@ -18,7 +18,6 @@ permissions:
 
 jobs:
   validate:
-    uses: glitchedmob/infra-gha/.github/workflows/tf-validate.yml@v0.3.0
+    uses: glitchedmob/infra-gha/.github/workflows/tf-validate.yml@v0.6.0
     with:
-      working-directory: tf
       init-backend: false
