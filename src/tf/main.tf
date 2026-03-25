@@ -151,11 +151,15 @@ resource "aws_iam_role_policy" "github_actions_terraform_ssm" {
         Action = [
           "ssm:GetParameter",
           "ssm:GetParameters",
+          "ssm:GetParametersByPath",
           "ssm:PutParameter",
           "ssm:DeleteParameter",
           "ssm:ListTagsForResource"
         ]
-        Resource = "arn:aws:ssm:*:*:parameter/homelab/*"
+        Resource = [
+          "arn:aws:ssm:*:*:parameter/homelab/*",
+          "arn:aws:ssm:*:*:parameter/vm-workloads/*"
+        ]
       },
       {
         Effect = "Allow"
