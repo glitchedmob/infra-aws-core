@@ -86,6 +86,7 @@ resource "aws_iam_role" "github_actions_terraform" {
               "repo:glitchedmob/infra:*",
               "repo:glitchedmob/infra-headscale:*",
               "repo:glitchedmob/infra-public-edge:*",
+              "repo:glitchedmob/infra-vm-workloads:*",
             ]
           }
           StringEquals = {
