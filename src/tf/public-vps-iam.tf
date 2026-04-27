@@ -39,7 +39,10 @@ resource "aws_iam_user_policy" "public_vps_flux_ssm" {
           "ssm:GetParameters",
           "ssm:GetParametersByPath"
         ]
-        Resource = "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.public_vps.account_id}:parameter/homelab/${local.public_vps_hostname}/*"
+        Resource = [
+          "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.public_vps.account_id}:parameter/homelab/${local.public_vps_hostname}/*",
+          "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.public_vps.account_id}:parameter/homelab/public-edge/*"
+        ]
       }
     ]
   })
