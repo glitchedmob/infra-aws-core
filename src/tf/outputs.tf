@@ -13,3 +13,13 @@ output "github_actions_role_arn" {
   value       = aws_iam_role.github_actions_terraform.arn
   sensitive   = true
 }
+
+output "lz_vms_eso_access_key_id_ssm_path" {
+  description = "SSM parameter path for the LZ VMs ESO IAM access key ID."
+  value       = local.lz_vms_eso_access_key_id_path
+}
+
+output "lz_vms_eso_secret_access_key_ssm_path" {
+  description = "SSM parameter path for the LZ VMs ESO IAM secret access key."
+  value       = local.lz_vms_eso_secret_access_key_path
+}

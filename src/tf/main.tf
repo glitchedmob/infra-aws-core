@@ -85,9 +85,9 @@ resource "aws_iam_role" "github_actions_terraform" {
             "token.actions.githubusercontent.com:sub" = [
               "repo:glitchedmob/infra:*",
               "repo:glitchedmob/infra-app-config:*",
+              "repo:glitchedmob/infra-dns:*",
               "repo:glitchedmob/infra-public-edge:*",
               "repo:glitchedmob/infra-vm-workloads:*",
-              "repo:glitchedmob/infra-dns:*",
             ]
           }
           StringEquals = {
