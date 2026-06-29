@@ -139,43 +139,6 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
   })
 }
 
-resource "aws_iam_role_policy" "github_actions_terraform_kms" {
-  name = "OpenBaoKmsAccessPolicy"
-  role = aws_iam_role.github_actions_terraform.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = [
-          "kms:ListAliases"
-        ]
-        Resource = "*"
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "kms:DescribeKey",
-          "kms:CreateKey",
-          "kms:CreateAlias",
-          "kms:DeleteAlias",
-          "kms:EnableKeyRotation",
-          "kms:DisableKeyRotation",
-          "kms:GetKeyPolicy",
-          "kms:GetKeyRotationStatus",
-          "kms:ListResourceTags",
-          "kms:PutKeyPolicy",
-          "kms:ScheduleKeyDeletion",
-          "kms:TagResource",
-          "kms:UntagResource"
-        ]
-        Resource = [data.aws_kms_key.openbao_unseal.arn]
-      }
-    ]
-  })
-}
-
 resource "aws_iam_role_policy" "github_actions_terraform_ssm" {
   name = "HomelabSSMParameterAccessPolicy"
   role = aws_iam_role.github_actions_terraform.id

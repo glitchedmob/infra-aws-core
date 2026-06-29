@@ -7,10 +7,6 @@ locals {
 
 data "aws_caller_identity" "lz_vms" {}
 
-data "aws_kms_key" "openbao_unseal" {
-  key_id = "alias/openbao-unseal"
-}
-
 resource "aws_iam_user" "lz_vms_eso_ssm" {
   name = local.lz_vms_iam_user_name
 }
@@ -47,16 +43,6 @@ resource "aws_iam_user_policy" "lz_vms_eso_ssm" {
           "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.lz_vms.account_id}:parameter/homelab/${local.lz_vms_name}/*",
           "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.lz_vms.account_id}:parameter/vm-workloads/lz/infra-vm-workloads/*"
         ]
-      },
-      {
-        Sid    = "OpenBaoKmsUnseal"
-        Effect = "Allow"
-        Action = [
-          "kms:Decrypt",
-          "kms:Encrypt",
-          "kms:DescribeKey"
-        ]
-        Resource = [data.aws_kms_key.openbao_unseal.arn]
       }
     ]
   })
