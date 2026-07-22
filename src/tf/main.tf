@@ -83,11 +83,11 @@ resource "aws_iam_role" "github_actions_terraform" {
         Condition = {
           StringLike = {
             "token.actions.githubusercontent.com:sub" = [
-              "repo:glitchedmob/infra:*",
-              "repo:glitchedmob/infra-app-config:*",
-              "repo:glitchedmob/infra-dns:*",
-              "repo:glitchedmob/infra-public-edge:*",
-              "repo:glitchedmob/infra-vm-workloads:*",
+              "repo:glitchedmob@9029666/infra@1191379833:*",
+              "repo:glitchedmob@9029666/infra-app-config@1189158374:*",
+              "repo:glitchedmob@9029666/infra-dns@1191350100:*",
+              "repo:glitchedmob@9029666/infra-public-edge@1189070796:*",
+              "repo:glitchedmob@9029666/infra-vm-workloads@1191316259:*",
             ]
           }
           StringEquals = {
