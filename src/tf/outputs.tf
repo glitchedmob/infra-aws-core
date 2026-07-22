@@ -23,3 +23,13 @@ output "lz_vms_eso_secret_access_key_ssm_path" {
   description = "SSM parameter path for the LZ VMs ESO IAM secret access key."
   value       = local.lz_vms_eso_secret_access_key_path
 }
+
+output "ses_email_identity_arn" {
+  description = "ARN of the SES identity used for outbound email."
+  value       = aws_sesv2_email_identity.levizitting_com.arn
+}
+
+output "ses_mail_from_domain" {
+  description = "Custom MAIL FROM domain used by SES."
+  value       = aws_sesv2_email_identity_mail_from_attributes.levizitting_com.mail_from_domain
+}
