@@ -7,7 +7,7 @@ resource "aws_sesv2_email_identity" "levizitting_com" {
   email_identity = local.ses_email_identity
 
   tags = {
-    ManagedBy = "terraform"
+    ManagedBy = "OpenTofu"
   }
 }
 

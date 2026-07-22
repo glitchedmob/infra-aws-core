@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "tfstate_infra" {
   bucket = "levizitting-infra-tf-state"
 
   tags = {
-    ManagedBy = "terraform"
+    ManagedBy = "OpenTofu"
   }
 }
 
@@ -52,7 +52,7 @@ resource "aws_dynamodb_table" "tflock" {
   }
 
   tags = {
-    ManagedBy = "terraform"
+    ManagedBy = "OpenTofu"
   }
 }
 
@@ -64,7 +64,7 @@ resource "aws_iam_openid_connect_provider" "github_actions" {
   ]
 
   tags = {
-    ManagedBy = "terraform"
+    ManagedBy = "OpenTofu"
   }
 }
 
@@ -99,7 +99,7 @@ resource "aws_iam_role" "github_actions_terraform" {
   })
 
   tags = {
-    ManagedBy = "terraform"
+    ManagedBy = "OpenTofu"
   }
 }
 
