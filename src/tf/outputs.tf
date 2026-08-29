@@ -20,6 +20,22 @@ output "github_actions_public_edge_role_arn" {
   sensitive   = true
 }
 
+output "github_actions_vm_workloads_role_arn" {
+  description = "IAM role ARN for infra-vm-workloads GitHub Actions."
+  value       = module.github_actions.vm_workloads_role_arn
+  sensitive   = true
+}
+
+output "lz_k3s_oidc_provider_arn" {
+  description = "IAM OIDC provider ARN for the LZ K3s cluster."
+  value       = aws_iam_openid_connect_provider.lz_k3s.arn
+}
+
+output "lz_k3s_workload_boundary_arn" {
+  description = "Permissions boundary ARN for LZ K3s Kubernetes workload roles."
+  value       = aws_iam_policy.lz_k3s_kubernetes_workload_boundary.arn
+}
+
 output "public_edge_oidc_provider_arn" {
   description = "IAM OIDC provider ARN for the public-edge Kubernetes cluster."
   value       = aws_iam_openid_connect_provider.public_edge.arn
