@@ -14,6 +14,22 @@ output "github_actions_role_arn" {
   sensitive   = true
 }
 
+output "github_actions_public_edge_role_arn" {
+  description = "IAM role ARN for infra-public-edge GitHub Actions."
+  value       = module.github_actions.public_edge_role_arn
+  sensitive   = true
+}
+
+output "public_edge_oidc_provider_arn" {
+  description = "IAM OIDC provider ARN for the public-edge Kubernetes cluster."
+  value       = aws_iam_openid_connect_provider.public_edge.arn
+}
+
+output "public_edge_workload_boundary_arn" {
+  description = "Permissions boundary ARN for public-edge Kubernetes workload roles."
+  value       = aws_iam_policy.public_edge_kubernetes_workload_boundary.arn
+}
+
 output "lz_vms_eso_access_key_id_ssm_path" {
   description = "SSM parameter path for the LZ VMs ESO IAM access key ID."
   value       = local.lz_vms_eso_access_key_id_path
