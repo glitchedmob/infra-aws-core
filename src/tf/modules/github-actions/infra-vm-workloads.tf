@@ -7,8 +7,6 @@ locals {
   ]
   vm_workloads_operational_ssm_parameter_arns = [
     "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/homelab/headscale/lz-k3s/*",
-    "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/homelab/lz-vms/eso-ssm-access-key-id",
-    "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/homelab/lz-vms/eso-ssm-secret-access-key",
   ]
 
   vm_workloads_workload_role_arn_pattern = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/lz-k3s/*"

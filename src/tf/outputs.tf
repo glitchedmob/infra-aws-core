@@ -46,16 +46,6 @@ output "public_edge_workload_boundary_arn" {
   value       = aws_iam_policy.public_edge_kubernetes_workload_boundary.arn
 }
 
-output "lz_vms_eso_access_key_id_ssm_path" {
-  description = "SSM parameter path for the LZ VMs ESO IAM access key ID."
-  value       = local.lz_vms_eso_access_key_id_path
-}
-
-output "lz_vms_eso_secret_access_key_ssm_path" {
-  description = "SSM parameter path for the LZ VMs ESO IAM secret access key."
-  value       = local.lz_vms_eso_secret_access_key_path
-}
-
 output "ses_email_identity_arn" {
   description = "ARN of the SES identity used for outbound email."
   value       = aws_sesv2_email_identity.levizitting_com.arn
