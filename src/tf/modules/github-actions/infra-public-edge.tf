@@ -127,13 +127,35 @@ resource "aws_iam_role_policy" "github_actions_public_edge" {
         }
       },
       {
+        Sid      = "TagPublicEdgeWorkloadRoleFromMain"
+        Effect   = "Allow"
+        Action   = "iam:TagRole"
+        Resource = local.public_edge_workload_role_arn_pattern
+        Condition = {
+          "ForAllValues:StringEquals" = {
+            "aws:TagKeys" = [
+              "KubernetesNamespace",
+              "KubernetesServiceAccount",
+              "ManagedBy",
+              "Repository",
+            ]
+          }
+          StringEquals = {
+            "token.actions.githubusercontent.com:sub" = local.public_edge_github_main_subject
+          }
+          StringEqualsIfExists = {
+            "aws:RequestTag/ManagedBy"  = "OpenTofu"
+            "aws:RequestTag/Repository" = "glitchedmob/infra-public-edge"
+          }
+        }
+      },
+      {
         Sid    = "ManageBoundedPublicEdgeWorkloadRoleFromMain"
         Effect = "Allow"
         Action = [
           "iam:DeleteRole",
           "iam:DeleteRolePolicy",
           "iam:PutRolePolicy",
-          "iam:TagRole",
           "iam:UntagRole",
           "iam:UpdateAssumeRolePolicy",
           "iam:UpdateRole",
