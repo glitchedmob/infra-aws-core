@@ -56,18 +56,6 @@ resource "aws_dynamodb_table" "tflock" {
   }
 }
 
-resource "aws_iam_openid_connect_provider" "github_actions" {
-  url = "https://token.actions.githubusercontent.com"
-
-  client_id_list = [
-    "sts.amazonaws.com"
-  ]
-
-  tags = {
-    ManagedBy = "OpenTofu"
-  }
-}
-
 resource "aws_iam_role" "github_actions_terraform" {
   name = "GitHubActionsTerraformRole"
 
