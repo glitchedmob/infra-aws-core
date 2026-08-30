@@ -14,6 +14,18 @@ output "github_actions_role_arn" {
   sensitive   = true
 }
 
+output "github_actions_app_config_role_arn" {
+  description = "IAM role ARN for infra-app-config GitHub Actions."
+  value       = module.github_actions.app_config_role_arn
+  sensitive   = true
+}
+
+output "github_actions_dns_role_arn" {
+  description = "IAM role ARN for infra-dns GitHub Actions."
+  value       = module.github_actions.dns_role_arn
+  sensitive   = true
+}
+
 output "github_actions_public_edge_role_arn" {
   description = "IAM role ARN for infra-public-edge GitHub Actions."
   value       = module.github_actions.public_edge_role_arn
