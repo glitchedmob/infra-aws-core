@@ -12,8 +12,6 @@ locals {
       "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/homelab/headscale/infra-public-edge/*",
     ]
   )
-
-  public_edge_workload_role_arn_pattern = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/public-edge/*"
 }
 
 resource "aws_iam_role" "github_actions_public_edge" {
@@ -78,28 +76,6 @@ resource "aws_iam_role_policy" "github_actions_public_edge" {
         Resource = local.public_edge_read_ssm_parameter_arns
       },
       {
-        Sid    = "ReadPublicEdgeOIDCProvider"
-        Effect = "Allow"
-        Action = [
-          "iam:GetOpenIDConnectProvider",
-          "iam:ListOpenIDConnectProviderTags",
-        ]
-        Resource = var.public_edge_oidc_provider_arn
-      },
-      {
-        Sid    = "ReadPublicEdgeWorkloadRole"
-        Effect = "Allow"
-        Action = [
-          "iam:GetRole",
-          "iam:GetRolePolicy",
-          "iam:ListAttachedRolePolicies",
-          "iam:ListInstanceProfilesForRole",
-          "iam:ListRolePolicies",
-          "iam:ListRoleTags",
-        ]
-        Resource = local.public_edge_workload_role_arn_pattern
-      },
-      {
         Sid    = "ManagePublicEdgeSSMParametersFromMain"
         Effect = "Allow"
         Action = [
@@ -111,60 +87,6 @@ resource "aws_iam_role_policy" "github_actions_public_edge" {
         Resource = local.public_edge_owned_ssm_parameter_arns
         Condition = {
           StringEquals = {
-            "token.actions.githubusercontent.com:sub" = local.public_edge_github_main_subject
-          }
-        }
-      },
-      {
-        Sid      = "CreatePublicEdgeWorkloadRoleFromMain"
-        Effect   = "Allow"
-        Action   = "iam:CreateRole"
-        Resource = local.public_edge_workload_role_arn_pattern
-        Condition = {
-          StringEquals = {
-            "iam:PermissionsBoundary"                 = var.public_edge_workload_boundary_arn
-            "token.actions.githubusercontent.com:sub" = local.public_edge_github_main_subject
-          }
-        }
-      },
-      {
-        Sid      = "TagPublicEdgeWorkloadRoleFromMain"
-        Effect   = "Allow"
-        Action   = "iam:TagRole"
-        Resource = local.public_edge_workload_role_arn_pattern
-        Condition = {
-          "ForAllValues:StringEquals" = {
-            "aws:TagKeys" = [
-              "KubernetesNamespace",
-              "KubernetesServiceAccount",
-              "ManagedBy",
-              "Repository",
-            ]
-          }
-          StringEquals = {
-            "token.actions.githubusercontent.com:sub" = local.public_edge_github_main_subject
-          }
-          StringEqualsIfExists = {
-            "aws:RequestTag/ManagedBy"  = "OpenTofu"
-            "aws:RequestTag/Repository" = "glitchedmob/infra-public-edge"
-          }
-        }
-      },
-      {
-        Sid    = "ManageBoundedPublicEdgeWorkloadRoleFromMain"
-        Effect = "Allow"
-        Action = [
-          "iam:DeleteRole",
-          "iam:DeleteRolePolicy",
-          "iam:PutRolePolicy",
-          "iam:UntagRole",
-          "iam:UpdateAssumeRolePolicy",
-          "iam:UpdateRole",
-        ]
-        Resource = local.public_edge_workload_role_arn_pattern
-        Condition = {
-          StringEquals = {
-            "iam:PermissionsBoundary"                 = var.public_edge_workload_boundary_arn
             "token.actions.githubusercontent.com:sub" = local.public_edge_github_main_subject
           }
         }

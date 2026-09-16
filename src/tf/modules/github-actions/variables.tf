@@ -18,16 +18,6 @@ variable "lz_k3s_workload_boundary_arn" {
   type        = string
 }
 
-variable "public_edge_oidc_provider_arn" {
-  description = "ARN of the Kubernetes OIDC provider for infra-public-edge."
-  type        = string
-}
-
-variable "public_edge_workload_boundary_arn" {
-  description = "Permissions boundary ARN for public-edge Kubernetes workload roles."
-  type        = string
-}
-
 variable "state_bucket_arn" {
   description = "ARN of the shared OpenTofu state bucket."
   type        = string
