@@ -72,6 +72,7 @@ resource "aws_iam_role_policy" "github_actions_public_edge" {
         Effect = "Allow"
         Action = [
           "ssm:GetParameter",
+          "ssm:GetParametersByPath",
           "ssm:ListTagsForResource",
         ]
         Resource = local.public_edge_read_ssm_parameter_arns
