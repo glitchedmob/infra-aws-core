@@ -5,9 +5,6 @@ locals {
   vm_workloads_owned_ssm_parameter_arns = [
     "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/vm-workloads/lz/infra-vm-workloads/*",
   ]
-  vm_workloads_operational_ssm_parameter_arns = [
-    "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/homelab/headscale/lz-k3s/*",
-  ]
 
   vm_workloads_workload_role_arn_pattern = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/lz-k3s/*"
 }
@@ -73,22 +70,6 @@ resource "aws_iam_role_policy" "github_actions_vm_workloads" {
           "ssm:ListTagsForResource",
         ]
         Resource = local.vm_workloads_owned_ssm_parameter_arns
-      },
-      {
-        Sid    = "ReadVMWorkloadsOperationalSSMParametersFromMain"
-        Effect = "Allow"
-        Action = [
-          "ssm:GetParameter",
-          "ssm:GetParameters",
-          "ssm:GetParametersByPath",
-          "ssm:ListTagsForResource",
-        ]
-        Resource = local.vm_workloads_operational_ssm_parameter_arns
-        Condition = {
-          StringEquals = {
-            "token.actions.githubusercontent.com:sub" = local.vm_workloads_github_main_subject
-          }
-        }
       },
       {
         Sid    = "ReadLZK3sOIDCProvider"
