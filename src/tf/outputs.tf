@@ -42,6 +42,17 @@ output "lz_k3s_workload_boundary_arn" {
   value       = aws_iam_policy.lz_k3s_kubernetes_workload_boundary.arn
 }
 
+output "sgfdevs_k3s_oidc_provider_arn" {
+  description = "IAM OIDC provider ARN for the SGF Devs K3s cluster in LZ."
+  value       = aws_iam_openid_connect_provider.sgfdevs_k3s.arn
+}
+
+output "sgfdevs_tailnet_parameter_reader_role_arn" {
+  description = "IAM role ARN for SGF Devs ingress auth-key reads in LZ."
+  value       = aws_iam_role.sgfdevs_tailnet_parameter_reader.arn
+  sensitive   = true
+}
+
 output "ses_email_identity_arn" {
   description = "ARN of the SES identity used for outbound email."
   value       = aws_sesv2_email_identity.levizitting_com.arn
