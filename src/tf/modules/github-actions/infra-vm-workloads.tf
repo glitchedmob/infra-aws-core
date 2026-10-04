@@ -72,6 +72,20 @@ resource "aws_iam_role_policy" "github_actions_vm_workloads" {
         Resource = local.vm_workloads_owned_ssm_parameter_arns
       },
       {
+        Sid    = "ReadLZBootstrapTailnetParametersFromMain"
+        Effect = "Allow"
+        Action = "ssm:GetParameter"
+        Resource = [
+          "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/homelab/headscale/pods/lz/ingress-gateway-auth-key",
+          "arn:aws:ssm:${var.aws_region}:${data.aws_caller_identity.current.account_id}:parameter/homelab/headscale/pods/lz/dns-gateway-auth-key",
+        ]
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:sub" = local.vm_workloads_github_main_subject
+          }
+        }
+      },
+      {
         Sid    = "ReadLZK3sOIDCProvider"
         Effect = "Allow"
         Action = [
