@@ -53,6 +53,11 @@ output "sgfdevs_tailnet_parameter_reader_role_arn" {
   sensitive   = true
 }
 
+output "sgfdevs_bootstrap_tailnet_parameter_reader_role_arn" {
+  description = "IAM role ARN for SGF Devs workflow bootstrap ingress auth-key reads in LZ."
+  value       = aws_iam_role.sgfdevs_bootstrap_tailnet_parameter_reader.arn
+}
+
 output "ses_email_identity_arn" {
   description = "ARN of the SES identity used for outbound email."
   value       = aws_sesv2_email_identity.levizitting_com.arn
