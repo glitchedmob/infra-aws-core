@@ -53,11 +53,6 @@ output "sgfdevs_tailnet_parameter_reader_role_arn" {
   sensitive   = true
 }
 
-output "k3s_bootstrap_reader_user_name" {
-  description = "IAM user name for operator-issued bootstrap credentials. Create and rotate access keys outside OpenTofu."
-  value       = aws_iam_user.k3s_bootstrap_reader.name
-}
-
 output "ses_email_identity_arn" {
   description = "ARN of the SES identity used for outbound email."
   value       = aws_sesv2_email_identity.levizitting_com.arn

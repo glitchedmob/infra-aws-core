@@ -18,6 +18,11 @@ variable "lz_k3s_workload_boundary_arn" {
   type        = string
 }
 
+variable "vm_workloads_parameter_reader_boundary_arn" {
+  description = "Permissions boundary ARN for repository-owned VM workload parameter readers."
+  type        = string
+}
+
 variable "state_bucket_arn" {
   description = "ARN of the shared OpenTofu state bucket."
   type        = string

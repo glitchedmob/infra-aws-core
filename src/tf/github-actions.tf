@@ -1,6 +1,8 @@
 module "github_actions" {
   source = "./modules/github-actions"
 
+  vm_workloads_parameter_reader_boundary_arn = aws_iam_policy.vm_workloads_parameter_reader_boundary.arn
+
   aws_region                   = var.aws_region
   lz_k3s_oidc_provider_arn     = aws_iam_openid_connect_provider.lz_k3s.arn
   lz_k3s_workload_boundary_arn = aws_iam_policy.lz_k3s_kubernetes_workload_boundary.arn
