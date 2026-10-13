@@ -53,9 +53,9 @@ output "sgfdevs_tailnet_parameter_reader_role_arn" {
   sensitive   = true
 }
 
-output "sgfdevs_bootstrap_tailnet_parameter_reader_role_arn" {
-  description = "IAM role ARN for SGF Devs workflow bootstrap ingress auth-key reads in LZ."
-  value       = aws_iam_role.sgfdevs_bootstrap_tailnet_parameter_reader.arn
+output "k3s_bootstrap_reader_user_name" {
+  description = "IAM user name for operator-issued bootstrap credentials. Create and rotate access keys outside OpenTofu."
+  value       = aws_iam_user.k3s_bootstrap_reader.name
 }
 
 output "ses_email_identity_arn" {
